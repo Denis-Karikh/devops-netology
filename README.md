@@ -27,7 +27,8 @@ Type = simple ExecStart = / usr / local / bin / node_exporter
 [Install] WantedBy = multi-user.target 
 ```
 ### vagrant @ vagrant: /etc/systemd/system $ sudo cat /proc/7055/Environment 
->LANG = en_US.UTF-8LANGUAGE = en_US: PATH = / usr / local / sbin: / usr / local / bin: / usr / sbin: / usr / bin: / sbin: / bin: / snap / bin INVOCATION_ID = 0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM = 9: 54872MYVAR = some_value
+>LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+INVOCATION_ID=0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM=9:35758MYVAR=some_value
 
 ### 2)
 >CPU:
