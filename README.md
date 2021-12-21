@@ -68,7 +68,9 @@ vagrant@vagrant:~$ ulimit -Hn
 
 6)root@vagrant:~# ps -e |grep sleep
    1953 pts/2    00:00:00 sleep
+   
 root@vagrant:~# nsenter --target 1953 --pid --mount
+
 root@vagrant:/# ps
     PID TTY          TIME CMD
       2 pts/0    00:00:00 bash
