@@ -1,39 +1,10 @@
 # devops-netology
-1)vagrant@vagrant:~$ ps -e |grep node_exporter   
-   4336 ?        00:00:00 node_exporter
-vagrant@vagrant:~$ systemctl stop node_exporter
-==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
-Authentication is required to stop 'node_exporter.service'.
-Authenticating as: vagrant,,, (vagrant)
-Password: 
-==== AUTHENTICATION COMPLETE ===
-vagrant@vagrant:~$ ps -e |grep node_exporter
-vagrant@vagrant:~$ systemctl start node_exporter
-==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
-Authentication is required to start 'node_exporter.service'.
-Authenticating as: vagrant,,, (vagrant)
-Password: 
-==== AUTHENTICATION COMPLETE ===
-vagrant@vagrant:~$ ps -e |grep node_exporter
-   7055 ?        00:00:00 node_exporter
-vagrant@vagrant:~$ 
-$ sudo nano /etc/systemd/system/node_exporter.service
-[Unit]
-Description=Prometheus Node Exporter
-Wants=network-online.target
-After=network-online.target
+1)1) vagrant @ vagrant: $ ps -e | grep node_exporter
+4336? 00:00:00 node_exporter vagrant @ vagrant: $ systemctl stop node_exporter ==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units === Stopping 'node_exporter.service' requires authentication. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === vagrant @ vagrant: $ ps -e | grep node_exporter vagrant @ vagrant: $ systemctl start node_exporter ==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units === Authentication is required to run 'node_exporter.service'. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service [Block] Description = Prometheus node exporter wants = network-online.target After = network-online.target
 
-[Service]
-User=node_exporter
-Group=node_exporter
-Type=simple
-ExecStart=/usr/local/bin/node_exporter
+[Service] User = node_exporter Group = node_exporter Type = simple ExecStart = / usr / local / bin / node_exporter
 
-[Install]
-WantedBy=multi-user.target
-agrant@vagrant:/etc/systemd/system$ sudo cat /proc/7055/environ
-LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-INVOCATION_ID=0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM=9:54872MYVAR=some_value
+[Install] WantedBy = multi-user.target agrant @ vagrant: / etc / systemd / system $ sudo cat / proc / 7055 / Environment LANG = en_US.UTF-8LANGUAGE = en_US: PATH = / usr / local / sbin: / usr / local / bin: / usr / sbin: / usr / bin: / sbin: / bin: / snap / bin INVOCATION_ID = 0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM = 9: 54872MYVAR = some_value
 
 2)CPU:
     node_cpu_seconds_total{cpu="0",mode="idle"} 2238.49
