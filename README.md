@@ -14,17 +14,17 @@
 ### vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter 
 ### vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service 
 ```editorconfig
-[Unit] 
-Description = Prometheus node exporter 
-wants = network-online.target 
-After = network-online.target
+[Unit]
+Description=Node Exporter
 
-[Service] 
-User = node_exporter 
-Group = node_exporter 
-Type = simple ExecStart = /usr/local/bin/node_exporter
+[Service]
+User=node_exporter
+Group=node_exporter
+EnvironmentFile=-/etc/sysconfig/node_exporter
+ExecStart=/usr/local/bin/node_exporter $OPTIONS
 
-[Install] WantedBy = multi-user.target 
+[Install]
+WantedBy=multi-user.target
 ```
 ### vagrant @ vagrant: /etc/systemd/system $ sudo cat /proc/7055/Environment 
 >LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
