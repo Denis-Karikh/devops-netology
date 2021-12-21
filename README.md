@@ -1,5 +1,5 @@
 # devops-netology
-1)1) vagrant @ vagrant: $ ps -e | grep node_exporter
+1) vagrant @ vagrant: $ ps -e | grep node_exporter
 4336? 00:00:00 node_exporter vagrant @ vagrant: $ systemctl stop node_exporter ==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units === Stopping 'node_exporter.service' requires authentication. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === vagrant @ vagrant: $ ps -e | grep node_exporter vagrant @ vagrant: $ systemctl start node_exporter ==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units === Authentication is required to run 'node_exporter.service'. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service [Block] Description = Prometheus node exporter wants = network-online.target After = network-online.target
 
 [Service] User = node_exporter Group = node_exporter Type = simple ExecStart = / usr / local / bin / node_exporter
