@@ -28,7 +28,9 @@ vagrant @ vagrant:sudo nano /opt/node_exporter.envi
 ```editorconfig
 OPTIONS="--collector.systemd --collector.ntp"
 ```
-### vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service 
+```shell
+vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service 
+```
 ```editorconfig
 [Unit]
 Description=Node Exporter
@@ -58,7 +60,28 @@ root@vagrant:/lib/systemd/system# systemctl daemon-reload
 Запускаем службу и проверяем статус:
 ```shell
 root@vagrant:/lib/systemd/system# service node_exporter start
-root@vagrant:/lib/systemd/system# service node_exporter status
+```
+```shell
+root@vagrant:/lib/systemd/system# systemctl status node_exporter
+● node_exporter.service - Node Exporter
+     Loaded: loaded (/etc/systemd/system/node_exporter.service; static; vendor preset: enabled)
+     Active: active (running) since Mon 2021-12-27 19:30:38 UTC; 3s ago
+   Main PID: 1654 (node_exporter)
+      Tasks: 4 (limit: 1071)
+     Memory: 1.8M
+     CGroup: /system.slice/node_exporter.service
+             └─1654 /opt/node_exporter/node_exporter --collector.systemd --collector.ntp
+
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - stat" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - systemd" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - textfile" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - time" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - timex" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - uname" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - vmstat" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - xfs" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - zfs" source="node_exporter.go:104"
+Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg="Listening on :9100" source="node_exporter.go:170"
 ```
 
 Сервис корректно стартовал. Дальнейшие проверки показали, что сервис может быть успешно остановлен и запускается при перезагрузке.
