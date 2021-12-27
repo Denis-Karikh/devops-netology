@@ -1,34 +1,67 @@
 # devops-netology
 
 ### 1)
-### vagrant @ vagrant: $ ps -e | grep node_exporter
+```shell
+vagrant @ vagrant: $ ps -e | grep node_exporter
 >4336? 00:00:00 node_exporter 
-### vagrant @ vagrant: $ systemctl stop node_exporter 
+```
+```shell
+vagrant @ vagrant: $ systemctl stop node_exporter 
 >==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units 
 === Stopping 'node_exporter.service' requires authentication. Authenticate as: vagrant ,,, (vagrant) Password: 
 ==== AUTHENTICATION DONE === 
-### vagrant @ vagrant: $ ps -e | grep node_exporter 
-### vagrant @ vagrant: $ systemctl start node_exporter 
+```
+```shell
+vagrant @ vagrant: $ ps -e | grep node_exporter 
+```
+```shell
+vagrant @ vagrant: $ systemctl start node_exporter 
 >==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units 
 === Authentication is required to run 'node_exporter.service'. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === 
-### vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter 
+```
+```shell
+vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter
+```
+```shell
+vagrant @ vagrant:sudo nano /opt/node_exporter.envi
+```
+```editorconfig
+OPTIONS="--collector.systemd --collector.ntp"
+```
 ### vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service 
 ```editorconfig
 [Unit]
 Description=Node Exporter
+Wants=network-online.target
 
 [Service]
+EnvironmentFile=/opt/node_exporter.envi
 User=node_exporter
 Group=node_exporter
-EnvironmentFile=-/etc/sysconfig/node_exporter
-ExecStart=/usr/local/bin/node_exporter $OPTIONS
+Type=simple
+ExecStart=/opt/node_exporter/node_exporter $OPTIONS
 
-[Install]
+[install]
 WantedBy=multi-user.target
 ```
-### vagrant @ vagrant: /etc/systemd/system $ sudo cat /proc/7055/Environment 
->LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-INVOCATION_ID=0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM=9:35758MYVAR=some_value
+Включаем службу в автозапуск:
+```shell
+vagrant@vagrant:sudo su
+```
+```shell
+root@vagrant:/lib/systemd/system# systemctl enable node_exporter.service
+```
+Перечитаем настройки systemd:
+```shell
+root@vagrant:/lib/systemd/system# systemctl daemon-reload
+```
+Запускаем службу и проверяем статус:
+```shell
+root@vagrant:/lib/systemd/system# service node_exporter start
+root@vagrant:/lib/systemd/system# service node_exporter status
+```
+
+Сервис корректно стартовал. Дальнейшие проверки показали, что сервис может быть успешно остановлен и запускается при перезагрузке.
 
 ### 2)
 >CPU:
