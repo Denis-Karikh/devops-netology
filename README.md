@@ -1,149 +1,102 @@
-# devops-netology
+1)
+~~~bash
+Connected to stackoverflow.com.
+Escape character is '^]'.
+GET /questions HTTP/1.0
+HOST: stackoverflow.com
 
-### 1)
-```shell
-vagrant @ vagrant: $ ps -e | grep node_exporter
->4336? 00:00:00 node_exporter 
-```
-```shell
-vagrant @ vagrant: $ systemctl stop node_exporter 
->==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units 
-=== Stopping 'node_exporter.service' requires authentication. Authenticate as: vagrant ,,, (vagrant) Password: 
-==== AUTHENTICATION DONE === 
-```
-```shell
-vagrant @ vagrant: $ ps -e | grep node_exporter 
-```
-```shell
-vagrant @ vagrant: $ systemctl start node_exporter 
->==== AUTHENTICATION FOR org.freedesktop.systemd1.manage-units 
-=== Authentication is required to run 'node_exporter.service'. Authenticate as: vagrant ,,, (vagrant) Password: ==== AUTHENTICATION DONE === 
-```
-```shell
-vagrant @ vagrant: $ ps -e | grep node_exporter 7055? 00:00:00 node_exporter
-```
-```shell
-vagrant @ vagrant:sudo nano /opt/node_exporter.envi
-```
-```editorconfig
-OPTIONS="--collector.systemd --collector.ntp"
-```
-```shell
-vagrant @ vagrant: $ $ sudo nano /etc/systemd/system/node_exporter.service 
-```
-```editorconfig
-[Unit]
-Description=Node Exporter
-Wants=network-online.target
-
-[Service]
-EnvironmentFile=/opt/node_exporter.envi
-User=node_exporter
-Group=node_exporter
-Type=simple
-ExecStart=/opt/node_exporter/node_exporter $OPTIONS
-
-[install]
-WantedBy=multi-user.target
-```
-Включаем службу в автозапуск:
-```shell
-vagrant@vagrant:sudo su
-```
-```shell
-root@vagrant:/lib/systemd/system# systemctl enable node_exporter.service
-```
-Перечитаем настройки systemd:
-```shell
-root@vagrant:/lib/systemd/system# systemctl daemon-reload
-```
-Запускаем службу и проверяем статус:
-```shell
-root@vagrant:/lib/systemd/system# service node_exporter start
-```
-```shell
-root@vagrant:/lib/systemd/system# systemctl status node_exporter
-● node_exporter.service - Node Exporter
-     Loaded: loaded (/etc/systemd/system/node_exporter.service; static; vendor preset: enabled)
-     Active: active (running) since Mon 2021-12-27 19:30:38 UTC; 3s ago
-   Main PID: 1654 (node_exporter)
-      Tasks: 4 (limit: 1071)
-     Memory: 1.8M
-     CGroup: /system.slice/node_exporter.service
-             └─1654 /opt/node_exporter/node_exporter --collector.systemd --collector.ntp
-
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - stat" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - systemd" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - textfile" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - time" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - timex" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - uname" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - vmstat" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - xfs" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg=" - zfs" source="node_exporter.go:104"
-Dec 27 19:30:38 vagrant node_exporter[1654]: time="2021-12-27T19:30:38Z" level=info msg="Listening on :9100" source="node_exporter.go:170"
-```
-
-Сервис корректно стартовал. Дальнейшие проверки показали, что сервис может быть успешно остановлен и запускается при перезагрузке.
-
-### 2)
->CPU:
->>    node_cpu_seconds_total{cpu="0",mode="idle"} 2238.49
-    node_cpu_seconds_total{cpu="0",mode="system"} 16.72
-    node_cpu_seconds_total{cpu="0",mode="user"} 6.86
-    process_cpu_seconds_total
-    
->Memory:
->>    node_memory_MemAvailable_bytes 
-    node_memory_MemFree_bytes
-    node_memory_MemTotal_bytes
-    
->Disk(если несколько дисков то для каждого):
->>    node_disk_io_time_seconds_total{device="sda"} 
-    node_disk_read_bytes_total{device="sda"} 
-    node_disk_read_time_seconds_total{device="sda"} 
-    node_disk_write_time_seconds_total{device="sda"}
-    
->Network(так же для каждого активного адаптера):
->>    node_network_receive_errs_total{device="eth0"} 
-    node_network_receive_bytes_total{device="eth0"} 
-    node_network_transmit_bytes_total{device="eth0"}
-    node_network_transmit_errs_total{device="eth0"}
- ### 3)
-Приложил скриншот
- ### 4)
-Приложил скриншот, да возможно с помощью команды dmesg | grep virtual
- ### 5) 
-### vagrant@vagrant:~$ /sbin/sysctl -n fs.nr_open
-1048576
-Это максимальное число открытых дескрипторов для ядра
-Число задается кратное 1024, в данном случае =1024*1024. 
-
-Макс предел :
-### vagrant@vagrant:~$ cat /proc/sys/fs/file-max
->9223372036854775807
-
-### vagrant@vagrant:~$ ulimit -Sn
-1024
-мягкий лимит (так же ulimit -n)на пользователя
-
-### vagrant@vagrant:~$ ulimit -Hn
-1048576
-жесткий лимит на пользователя (не может быть увеличен, только уменьшен)
-
-### 6)
-### root@vagrant:~# ps -e |grep sleep
- >  1953 pts/2    00:00:00 sleep
-   
-### root@vagrant:~# nsenter --target 1953 --pid --mount
-
-### root@vagrant:/# ps
->    PID TTY          TIME CMD
-      2 pts/0    00:00:00 bash
-     11 pts/0    00:00:00 ps
-> 
-## 7)
-Это рекурсия, процесс запускающий самого себя.
-Если установить ulimit -u 50 - число процессов будет ограниченно 50 для пользоователя. 
+HTTP/1.1 301 Moved Permanently
+cache-control: no-cache, no-store, must-revalidate
+location: https://stackoverflow.com/questions
+x-request-guid: 57e43ec2-32f3-40c3-affe-20eb577b3913
+feature-policy: microphone 'none'; speaker 'none'
+content-security-policy: upgrade-insecure-requests; frame-ancestors 'self' https://stackexchange.com
+Accept-Ranges: bytes
+Date: Fri, 31 Dec 2021 11:59:24 GMT
+Via: 1.1 varnish
+Connection: close
+X-Served-By: cache-fra19144-FRA
+X-Cache: MISS
+X-Cache-Hits: 0
+X-Timer: S1640951964.039622,VS0,VE92
+Vary: Fastly-SSL
+X-DNS-Prefetch-Control: off
+Set-Cookie: prov=b3ad848f-a7a4-5212-26c3-248cca2ebc19; domain=.stackoverflow.com; expires=Fri, 01-Jan-2055 00:00:00 GMT; path=/; HttpOnly
 
 
+Connection closed by foreign host.
+~~~
+Вернулся код 301 Moved Permanently - это означает, что запрошенный ресурс был перемещен в новое месторасположение, на которое указывает location: https://stackoverflow.com/questions.
+
+2)Status Code: 200 
+
+Завершено: 2.03 сек.
+Запросить URL: https://stackoverflow.com/ 399 мс
+
+3)188.235.156.10
+
+4)
+~~~bash
+root@vagrant:/home/vagrant# whois 188.235.156.10 | grep ^descr
+descr:          CJSC "ER-Telecom Holding" Saratov branch
+descr:          Saratov, Russia
+descr:          Individual PPPoE customers
+descr:          TM DOM.RU, Saratov ISP
+descr:          CJSC "ER-Telecom Holding" Saratov branch
+descr:          Saratov, Russia
+descr:          TM DOM.RU, Saratov ISP
+root@vagrant:/home/vagrant# whois 188.235.156.10 | grep ^origin
+origin:         AS50543
+~~~
+5)
+~~~bash
+root@vagrant:/home/vagrant# traceroute -An 8.8.8.8 -I
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  10.0.2.2 [*]  0.270 ms  0.243 ms  0.239 ms
+ 2  192.168.1.254 [*]  1.615 ms  1.692 ms  1.730 ms
+ 3  10.204.9.254 [*]  5.685 ms  5.681 ms  5.592 ms
+ 4  10.204.253.9 [*]  6.448 ms  6.528 ms  6.583 ms
+ 5  10.204.252.33 [*]  5.982 ms  6.072 ms  6.164 ms
+ 6  109.195.17.252 [AS50543]  6.718 ms  3.260 ms  4.066 ms
+ 7  109.195.24.30 [AS50543]  4.577 ms  5.877 ms  5.909 ms
+ 8  72.14.215.165 [AS15169]  20.688 ms  20.836 ms  20.859 ms
+ 9  72.14.215.166 [AS15169]  22.001 ms  21.886 ms  22.115 ms
+10  142.251.53.67 [AS15169]  21.194 ms  21.098 ms  21.256 ms
+11  108.170.250.83 [AS15169]  21.598 ms  21.680 ms  18.692 ms
+12  * * 209.85.249.158 [AS15169]  43.836 ms
+13  216.239.57.222 [AS15169]  38.183 ms  38.243 ms  38.260 ms
+14  72.14.237.199 [AS15169]  40.429 ms  40.763 ms  40.557 ms
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  8.8.8.8 [AS15169]  37.687 ms  39.646 ms  39.744 ms
+~~~
+6)
+~~~bash
+12. AS15169  209.85.249.158                                                  63.7%   103   39.2  41.2  38.3  48.6   2.7
+~~~
+7)
+~~~bash
+dns.google.             10800   IN      NS      ns1.zdns.google.
+dns.google.             10800   IN      NS      ns4.zdns.google.
+dns.google.             10800   IN      NS      ns3.zdns.google.
+dns.google.             10800   IN      NS      ns2.zdns.google.
+~~~
+~~~bash
+root@vagrant:/home/vagrant# dig dns.google A +noall +answer
+dns.google.             36      IN      A       8.8.4.4
+dns.google.             36      IN      A       8.8.8.8
+~~~
+8)
+~~~bash
+root@vagrant:/home/vagrant# dig -x 8.8.4.4 +noall +answer
+4.4.8.8.in-addr.arpa.   22118   IN      PTR     dns.google.
+root@vagrant:/home/vagrant# dig -x 8.8.8.8 +noall +answer
+8.8.8.8.in-addr.arpa.   19856   IN      PTR     dns.google.
+~~~
