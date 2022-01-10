@@ -1,0 +1,61 @@
+1)
+~~~bash
+route-views>show ip route 188.235.156.10
+Routing entry for 188.235.128.0/18
+  Known via "bgp 6447", distance 20, metric 0
+  Tag 6939, type external
+  Last update from 64.71.137.241 7w0d ago
+  Routing Descriptor Blocks:
+  * 64.71.137.241, from 64.71.137.241, 7w0d ago
+      Route metric is 0, traffic share count is 1
+      AS Hops 3
+      Route tag 6939
+      MPLS label: none
+~~~
+2)
+
+Настройки dummy0 интерфейса в /etc/network/interfaces:
+~~~bash
+    auto dummy0
+    iface dummy0 inet static
+    address 10.2.2.2/32
+    pre-up ip link add dummy0 type dummy
+    post-down ip link del dummy0
+~~~
+Интерфейсу eth0 в /etc/network/interfaces прописан маршрут при загрузке:
+~~~bash
+    auto eth0
+    iface eth0 inet static
+        address 192.168.1.10
+        netmask 255.255.255.0
+        post-up ip route add 192.168.1.0/24 via 192.168.1.1
+        post-up ip route add 192.168.1.0/24 dev eth0 src 192.168.1.10
+~~~
+Таблица маршрутизации выглядит следующим образом:
+~~~bash
+    vagrant@vagrant:~$ ip route show
+    default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100
+    8.8.8.8 via 192.168.1.1 dev eth0
+    10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15
+    10.0.2.2 dev eth0 proto dhcp scope link src 10.0.2.15 metric 100
+    192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.10
+~~~
+3)
+~~~bash
+root@vagrant:/home/vagrant# ss -a -r -t -4
+State       Recv-Q      Send-Q            Local Address:Port                       Peer Address:Port       Process
+LISTEN      0           4096                    0.0.0.0:rpc.portmapper                  0.0.0.0:*
+LISTEN      0           4096               localhost%lo:domain                          0.0.0.0:*
+LISTEN      0           128                     0.0.0.0:ssh                             0.0.0.0:*
+ESTAB       0           0                       vagrant:ssh                            _gateway:52048
+~~~
+4)
+~~~bash
+root@vagrant:/home/vagrant# ss -a -r -u -4
+State       Recv-Q      Send-Q             Local Address:Port                       Peer Address:Port      Process
+UNCONN      0           0                   localhost%lo:domain                          0.0.0.0:*
+UNCONN      0           0                   vagrant%eth0:bootpc                          0.0.0.0:*
+UNCONN      0           0                        0.0.0.0:rpc.portmapper                  0.0.0.0:*
+~~~
+5)~~~
+
