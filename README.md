@@ -1,6 +1,9 @@
 1)[![imageban](https://i7.imageban.ru/thumbs/2022.01.23/0111fcb1160bdc89b9a1062f7db6fbc9.png)](https://imageban.ru/show/2022/01/23/0111fcb1160bdc89b9a1062f7db6fbc9/png)
-2)Скрин прекреплен
-3)Скрин прекреплен
+
+2)[![imageban](https://i7.imageban.ru/thumbs/2022.01.23/b33c32517df329d415486bf5d513824c.png)](https://imageban.ru/show/2022/01/23/b33c32517df329d415486bf5d513824c/png)
+
+3)[![imageban](https://i7.imageban.ru/thumbs/2022.01.23/9103f187301588ef261550212468b231.png)](https://imageban.ru/show/2022/01/23/9103f187301588ef261550212468b231/png)
+
 4)Клонируем репозиторий testssl:
 ```shell
 git clone --depth 1 https://github.com/drwetter/testssl.sh.git
