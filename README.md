@@ -1,4 +1,4 @@
-1)[![imageban](https://imageban.ru/show/2022/01/23/0111fcb1160bdc89b9a1062f7db6fbc9/png)](https://imageban.ru)
+1)[![imageban](https://i7.imageban.ru/thumbs/2022.01.23/0111fcb1160bdc89b9a1062f7db6fbc9.png)](https://imageban.ru/show/2022/01/23/0111fcb1160bdc89b9a1062f7db6fbc9/png)
 2)Скрин прекреплен
 3)Скрин прекреплен
 4)Клонируем репозиторий testssl:
