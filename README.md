@@ -94,3 +94,5 @@ vagrant@vagrant:~/.ssh$
 vagrant@vagrant:~/.ssh$ ssh lin-tst2
 ```
 Подключение выполнено
+
+7)[![imageban](https://i4.imageban.ru/thumbs/2022.01.23/b11bebfbf26e6a5e05d084bf08fb98e3.png)](https://imageban.ru/show/2022/01/23/b11bebfbf26e6a5e05d084bf08fb98e3/png)
