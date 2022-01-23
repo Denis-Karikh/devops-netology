@@ -1,0 +1,14 @@
+1)'''bash
+vagrant@vagrant:~$ a=1
+vagrant@vagrant:~$ b=2
+vagrant@vagrant:~$ c=a+b
+vagrant@vagrant:~$ echo $c
+a+b
+vagrant@vagrant:~$ d=$a+$b
+vagrant@vagrant:~$ echo $d
+1+2
+vagrant@vagrant:~$ e=$(($a+$b))
+vagrant@vagrant:~$ echo $e
+3
+vagrant@vagrant:~$
+'''
