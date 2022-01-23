@@ -71,4 +71,26 @@ ssh-copy-id root@192.168.1.81 -> yes  (192.168.1.81 - ip адрес аналог
 ssh 'root@192.168.72.149'  
 Соединение установлено
 ```
- 6)
+ 6)6.  
+Переименовываем файл закрытого ключа:  
+```
+vagrant@vagrant:~/.ssh$
+vagrant@vagrant:~/.ssh$ mv id_rsa for-denis.key
+vagrant@vagrant:~/.ssh$
+```
+Создаём конфиг для клиента:  
+```
+vagrant@vagrant:~/.ssh$ cat config
+Host denis
+  HostName 192.168.1.81
+  IdentityFile ~/.ssh/for-denis.key
+  User root
+  Port 22
+vagrant@vagrant:~/.ssh$
+```
+Проверяем подключение по имени хоста:  
+```
+vagrant@vagrant:~/.ssh$
+vagrant@vagrant:~/.ssh$ ssh lin-tst2
+```
+Подключение выполнено
