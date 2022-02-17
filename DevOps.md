@@ -344,8 +344,8 @@ nginx -s reload
 #Настройка Crontab
 ```shell
 root@denis-VirtualBox:/home/denis# crontab -e
-48 00 18 * * /home/vagrant/new_cer >> /home/vagrant/log 2>&1
 #Далее переименовали cert.sh в > cert так как в crontab работает без расширений.
+48 00 18 * * /home/vagrant/new_cer >> /home/vagrant/log 2>&1
 ```shell
 root@denis-VirtualBox:/home/denis# grep CRON /var/log/syslog
 Feb 18 00:02:01 denis-VirtualBox CRON[14495]: (root) CMD (   test -x /etc/cron.daily/popularity-contest && /etc/cron.daily/popularity-contest --crond)
@@ -361,3 +361,4 @@ root@denis-VirtualBox:/home/denis# ls -l /etc/nginx/conf/
 -rw-r--r-- 1 root root 2567 фев 18 00:48 vault.test.example.com.crt.pem
 root@denis-VirtualBox:/home/denis# 
 ```
+![nginx sert](https://user-images.githubusercontent.com/93156184/154573866-9113ef8b-129b-4cf5-89ad-e2ceb07b8367.PNG)
