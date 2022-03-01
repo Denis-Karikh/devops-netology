@@ -53,3 +53,19 @@ test_db=# select * from information_schema.table_privileges where grantee in ('t
  postgres | test-simple-user | test_db       | public       | orders     | DELETE         | NO           | NO
 (8 rows)
 ```
+3)
+```bash
+test_db=# select count (*) from orders;
+ count 
+-------
+     5
+(1 row)
+
+test_db=# select count (*) from clients;
+ count 
+-------
+     5
+(1 row)
+
+test_db=# 
+```
