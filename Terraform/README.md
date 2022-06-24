@@ -1,4 +1,4 @@
-#Задание 1 (вариант с AWS)
+# Задача 1 (вариант с AWS)
 
 ```
 denis@denis:~/aws-terraform$ aws configure list
@@ -9,7 +9,7 @@ access_key     ****************ZYEH              env
 secret_key     ****************sOJN              env    
     region             eu-central-1      config-file    ~/.aws/config
 ```
-#Задание 2
+# Задача 2
 
 ```
 1.Packer by HashiCorp
