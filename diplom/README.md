@@ -178,7 +178,7 @@
  - **Успешно выполненный `pipeline`**
  
 ![img](picture/gitlab-piplines.PNG)
-![img](picture/GitLab-выполнение job.PNG)
+![img](picture/GitLab-выполнение%20job.PNG)
 
  - **Измененная тема на нашем сайте Wordpress**
  
