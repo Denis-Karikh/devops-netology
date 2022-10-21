@@ -1,0 +1,73 @@
+---
+Prephost:
+  hosts:
+    51.250.11.104:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+    db01:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+    db02:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+    app:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+    gitlab:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+    monitoring:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+    runner:
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+  vars:
+    virtual_domain: denis-netology.site
+    ip_nginx: 192.168.1.100
+    ip_db01: 192.168.1.32
+    ip_db02: 192.168.2.32
+    ip_app: 192.168.1.15
+    ip_gitlab: 192.168.1.24
+    ip_mon: 192.168.1.13
+    ip_runner: 192.168.1.28
+nginx:
+  hosts:
+    51.250.11.104:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+      virtual_domain: denis-netology.site
+database:
+  hosts:
+    db01:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+      mysql_replication_role: 'master'
+      mysql_server_id: 1
+    db02:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+      mysql_replication_role: 'slave'
+      mysql_server_id: 2
+wordpress:
+  hosts:
+    app:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+      virtual_domain: denis-netology.site
+git:
+  hosts:
+    gitlab:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+      virtual_domain: denis-netology.site
+mon:
+  hosts:
+    monitoring:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
+gitrunner:
+  hosts:
+    runner:
+      ansible_connection: ssh
+      ansible_user: ubuntu
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -J ubuntu@51.250.11.104"
