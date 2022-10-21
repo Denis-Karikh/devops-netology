@@ -1,11 +1,11 @@
 # Cloud ID
 variable "cloud_id" {
-  default = "b1gb8e4h0u6cjoicic95"
+  default = "cloud_id"
 }
 
 # Folder ID
 variable "folder_id" {
-  default = "b1gahcogcjagcec5kfm2"
+  default = "folder_id"
 }
 
 #Domain name
@@ -20,7 +20,7 @@ variable "int_ip" {
 
 #Token yandex
 variable "token" {
-  default = "AQAAAAAKVET4AATuwf-QKloB70yejXq9gXT5ipU"
+  default = "token"
 }
 
 #Image ID
