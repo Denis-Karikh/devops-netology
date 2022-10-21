@@ -47,7 +47,7 @@
 
 - **Создан S3 бакет в Yandex Cloud**
 
-![img](picture/создан бакет.PNG)
+![img](picture/создан%20бакет.PNG)
 
 
 - **Домен был делегирован под управление ns1.yandexcloud.net и ns2.yandexcloud.net**
@@ -65,8 +65,8 @@
 Ожидаемые результаты:
     Terraform сконфигурирован и создание инфраструктуры посредством Terraform возможно без дополнительных ручных действий.
     Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.
-![img](picture/Все развернуто на Яндекс клоуд.PNG)    
-![img](picture/созданы вирт машины.PNG)
+![img](picture/Все%20развернуто%20на%20Яндекс клоуд.PNG)    
+![img](picture/создан%20вир%20машины.PNG)
 ![img](picture/Делегирование.PNG)
 
 
@@ -146,7 +146,7 @@
 
 ![img](picture/gitlab.PNG)
 
-![img](picture/gitlab runner.PNG)
+![img](picture/gitlab%20runner.PNG)
 
 Необходимо настроить CI/CD систему для автоматического развертывания приложения при изменении кода.
 
@@ -182,7 +182,7 @@
 
  - **Измененная тема на нашем сайте Wordpress**
  
-![img](picture/Главный экран wordpress.PNG)
+![img](picture/Главный%20экран%20wordpress.PNG)
 
 ## Установка Prometheus, Alert Manager, Node Exporter и Grafana
 
